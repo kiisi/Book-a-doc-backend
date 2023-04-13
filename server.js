@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 dotenv.config()
 app.use(cookieParser())
 const corsOption = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     credentials:true,
     optionsSuccessStatus: 200
 }
