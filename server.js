@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 dotenv.config()
 app.use(cookieParser())
 const corsOption = {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://book-a-doc.vercel.app'],
     credentials:true,
     optionsSuccessStatus: 200
 }
