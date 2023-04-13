@@ -98,7 +98,7 @@ module.exports.login = async (req, res) =>{
         const _tk = createJWT(user._id)
 
         res.cookie('jwt', _tk, { 
-            httpOnly: true, 
+            // httpOnly: true, 
             maxAge: 5 * 60 * 1000, 
             secure: true,
             domain: 'https://book-a-doc.vercel.app',
