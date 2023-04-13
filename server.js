@@ -8,11 +8,13 @@ const cookieParser = require('cookie-parser')
 dotenv.config()
 app.use(cookieParser())
 const corsOption = {
-    origin: ['http://localhost:5173', 'https://book-a-doc.vercel.app'],
+    origin: 'https://book-a-doc.vercel.app',
+    // origin: ['http://localhost:5173', 'https://book-a-doc.vercel.app'],
     credentials:true,
-     sameSite: 'none',
+    sameSite: 'none',
     optionsSuccessStatus: 200
 }
+app.set("trust proxy", 1);
 app.use(cors(corsOption)) 
 const PORT = process.env.PORT || 5000
 
