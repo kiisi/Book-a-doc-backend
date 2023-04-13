@@ -3,6 +3,7 @@ const UserModel = require('../models/userModel')
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = require('../configs');
 
+
 module.exports.register = async (req, res) =>{
     const registration_data = req.body
 
@@ -100,7 +101,7 @@ module.exports.login = async (req, res) =>{
         res.cookie('jwt', _tk, { 
             // httpOnly: true, 
             maxAge: 5 * 60 * 1000, 
-            // secure: true,
+            secure: true,
             domain: 'https://book-a-doc.vercel.app',
             path: '/'
         })
@@ -142,6 +143,25 @@ const createJWT = (id) =>{
 // Verify User
 
 module.exports.verifyUser = (req, res) =>{
-    console.log("User allowed")
-    res.json({userInfo: req.userInfo})
+    const token = req.cookies.jwt
+    console.log("Token from cookies", token)
+    if(token){
+        jwt.verify(token, JWT_SECRET_KEY, async (err, decodedToken) =>{
+            console.log(decodedToken)
+            if(err){
+                console.log(err)
+                res.status(403).json({error: "Unauthorized user"})
+            }else{
+                let user = await UserModel.findById(decodedToken.id);
+                user.password = undefined
+                console.log(user)
+                req.userInfo = user
+                res.status(200).json({success: 'Authorized', data: user})
+                next()
+            }
+        })
+    }else{
+        res.status(403).json({error: "Unauthorized user"})
+        next()
+    }
 }
