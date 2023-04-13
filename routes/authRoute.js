@@ -8,6 +8,6 @@ router.post('/register', authController.register)
 router.post('/login', authController.login)
 
 // Verify User Route
-router.post('/verify-user', authController.verifyUser)
+router.get('/verify-user', authController.verifyUser)
 
 module.exports = router
