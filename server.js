@@ -29,5 +29,3 @@ app.use(require('./routes/authRoute'))
 app.get('/', (req, res) => {
     res.send('Welcome to server!')
 })
-
-app.listen(PORT, ()=> console.log(`Server is running live: http:localhost:${PORT}`))
