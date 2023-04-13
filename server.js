@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
 dotenv.config()
+app.set("trust proxy", 1);
 app.use(cookieParser())
 const corsOption = {
     origin: 'https://book-a-doc.vercel.app',
@@ -14,7 +15,6 @@ const corsOption = {
     sameSite: 'none',
     optionsSuccessStatus: 200
 }
-app.set("trust proxy", 1);
 app.use(cors(corsOption)) 
 const PORT = process.env.PORT || 5000
 
