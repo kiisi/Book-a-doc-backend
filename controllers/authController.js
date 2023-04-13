@@ -102,14 +102,23 @@ module.exports.login = async (req, res) =>{
         res.status(201).json({success: 'Login successful', data: user})
     }
     catch(err){
+        let err_bool = false
+
         if(err.message === 'incorrect email'){
             errors.email = 'Email not found!'
+            err_bool = true
         }
         if(err.message === 'incorrect password'){
             errors.password = 'Password is incorrect!'
+            err_bool = true
         }
         console.log(err)
-        res.status(403).json({error: errors})
+
+        if(err_bool){
+            return res.status(403).json({error: errors})
+        }else{
+            return res.status(500).json({server_err: "An error occurred"})
+        }
     }
 
 }
