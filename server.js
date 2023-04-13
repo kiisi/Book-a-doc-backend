@@ -16,7 +16,10 @@ app.use(cors(corsOption))
 const PORT = process.env.PORT || 5000
 
 mongoose.connect(process.env.MONGODB_URI)
-.then(()=> console.log('connected'))
+.then(()=> {
+    app.listen(PORT, ()=> console.log(`Server is running live: http:localhost:${PORT}`))
+    console.log('connected')
+})
 .catch(error => console.log(error))
 
 app.use(express.json())
