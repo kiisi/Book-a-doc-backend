@@ -10,6 +10,7 @@ app.use(cookieParser())
 const corsOption = {
     origin: ['http://localhost:5173', 'https://book-a-doc.vercel.app'],
     credentials:true,
+     sameSite: 'none',
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOption)) 
