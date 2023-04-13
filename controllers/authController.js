@@ -98,7 +98,7 @@ module.exports.login = async (req, res) =>{
         console.log(user._id)
         const _tk = createJWT(user._id)
 
-        res.cookie('jwt', _tk, { 
+        res.cookie('__jwt', _tk, { 
             // httpOnly: true, 
             maxAge: 5 * 60 * 1000, 
             secure: true,
