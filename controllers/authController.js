@@ -35,12 +35,14 @@ module.exports.register = async (req, res) =>{
         error_bool = true
     }
 
+    if(error_bool) {
+        return res.status(403).json({error: errors})
+    }
+
     const { first_name, last_name, email, password } = registration_data
 
     try{
-        if(error_bool) return res.status(403).json({error: errors})
-
-        const newUser =  await UserModel.create({ first_name, last_name, email, password })
+        await UserModel.create({ first_name, last_name, email, password })
         return res.status(201).json({success: 'Registration successful!'})
 
     }catch(err){
@@ -53,7 +55,7 @@ module.exports.register = async (req, res) =>{
         if(err.message === 'incorrect password'){
             errors.password = 'Password is incorrect!'
         }
-        res.status(403).json({error: errors})
+        return res.status(403).json({error: errors})
     }
 
 }
@@ -82,16 +84,18 @@ module.exports.login = async (req, res) =>{
         error_bool = true
     }
 
+    if(error_bool){
+        return res.status(403).json({error: errors})
+    }
+
     const {email, password} = req.body
 
     try{
-        if(error_bool) return res.status(403).json({error: errors})
 
         const user = await UserModel.login(email, password)
         user.password = undefined
         console.log(user._id)
         const _tk = createJWT(user._id)
-        console.log(_tk)
 
         res.cookie('jwt', _tk, {httpOnly: true, maxAge: 5 * 60 * 1000})
 
