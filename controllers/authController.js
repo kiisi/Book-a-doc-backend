@@ -102,8 +102,6 @@ module.exports.login = async (req, res) =>{
             maxAge: 5 * 60 * 60 * 1000, 
             httpOnly: true,
             secure: true,
-            // domain: 'https://book-a-doc.vercel.app',
-            // path: '/',
             sameSite: 'none',
         })
 
@@ -144,7 +142,7 @@ const createJWT = (id) =>{
 // Verify User
 
 module.exports.verifyUser = (req, res, next) =>{
-    const token = req.cookies.__Secure-jwt
+    const token = req.cookies
     console.log("Token from cookies", token)
     if(token){
         jwt.verify(token, JWT_SECRET_KEY, async (err, decodedToken) =>{
