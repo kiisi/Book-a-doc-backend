@@ -99,11 +99,12 @@ module.exports.login = async (req, res) =>{
         const _tk = createJWT(user._id)
 
         res.cookie('__Secure-jwt', _tk, {
-            maxAge: 5 * 60 * 1000, 
+            maxAge: 5 * 60 * 60 * 1000, 
+            // httpOnly: true,
             secure: true,
-            domain: 'https://book-a-doc.vercel.app',
-            path: '/',
-            sameSite: 'none',
+            // domain: 'https://book-a-doc.vercel.app',
+            // path: '/',
+            // sameSite: 'none',
         })
 
         res.status(201).json({success: 'Login successful', data: user})
@@ -142,7 +143,7 @@ const createJWT = (id) =>{
 
 // Verify User
 
-module.exports.verifyUser = (req, res) =>{
+module.exports.verifyUser = (req, res, next) =>{
     const token = req.cookies.jwt
     console.log("Token from cookies", token)
     if(token){
