@@ -100,11 +100,11 @@ module.exports.login = async (req, res) =>{
 
         res.cookie('__Secure-jwt', _tk, {
             maxAge: 5 * 60 * 60 * 1000, 
-            // httpOnly: true,
+            httpOnly: true,
             secure: true,
             // domain: 'https://book-a-doc.vercel.app',
             // path: '/',
-            // sameSite: 'none',
+            sameSite: 'none',
         })
 
         res.status(201).json({success: 'Login successful', data: user})
