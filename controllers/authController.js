@@ -144,7 +144,7 @@ const createJWT = (id) =>{
 // Verify User
 
 module.exports.verifyUser = (req, res, next) =>{
-    const token = req.cookies.jwt
+    const token = req.cookies.__Secure-jwt
     console.log("Token from cookies", token)
     if(token){
         jwt.verify(token, JWT_SECRET_KEY, async (err, decodedToken) =>{
