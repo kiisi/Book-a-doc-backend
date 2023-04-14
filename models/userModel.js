@@ -19,6 +19,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    height: {
+        type: String
+    },
+    weight: {
+        type: String
+    },
+    blood_group: {
+        type: String
+    },
+    genotype: {
+        type: String
+    }
 }, { timestamps: true })
 
 // Before document is saved

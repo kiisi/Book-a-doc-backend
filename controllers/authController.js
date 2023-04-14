@@ -99,7 +99,7 @@ module.exports.login = async (req, res) =>{
         const _tk = createJWT(user._id)
 
         res.cookie('__Secure-jwt', _tk, {
-            maxAge: 5 * 60 * 60 * 1000, 
+            maxAge: 24 * 60 * 60 * 1000, 
             httpOnly: true,
             secure: true,
             sameSite: 'none',
@@ -135,7 +135,7 @@ module.exports.login = async (req, res) =>{
 
 const createJWT = (id) =>{
     return jwt.sign({id}, JWT_SECRET_KEY, {
-        expiresIn: '120s'
+        expiresIn: 24 * 60 * 60
     })
 }
 
