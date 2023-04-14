@@ -10,7 +10,7 @@ app.set("trust proxy", 1);
 app.use(cookieParser())
 const corsOption = {
     // origin: ['http://localhost:5173', 'https://book-a-doc.vercel.app'],
-    origin: 'http://localhost:5173',
+    origin: 'https://book-a-doc.vercel.app',
     credentials:true,
     optionsSuccessStatus: 200
 }
