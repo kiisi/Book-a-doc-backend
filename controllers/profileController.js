@@ -17,7 +17,7 @@ module.exports.profile = async (req, res) =>{
 
     for (let key in profile_data){
         if(profile_data[key].trim() === ''){
-            errors[key] = 'This is field is empty!'
+            errors[key] = 'This field is empty!'
             error_bool = true
         }
     }
@@ -62,7 +62,7 @@ module.exports.userInfo = async (req, res) =>{
 
     for (let key in user_info_data){
         if(user_info_data[key].trim() === ''){
-            errors[key] = 'This is field is empty!'
+            errors[key] = 'This field is empty!'
             error_bool = true
         }
     }

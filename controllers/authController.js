@@ -19,7 +19,7 @@ module.exports.register = async (req, res) =>{
 
     for (let key in registration_data){
         if(registration_data[key].trim() === ''){
-            errors[key] = 'This is field is empty!'
+            errors[key] = 'This field is empty!'
             error_bool = true
         }
     }
@@ -74,7 +74,7 @@ module.exports.login = async (req, res) =>{
 
     for (let key in login_data){
         if(login_data[key].trim() === ''){
-            errors[key] = 'This is field is empty!'
+            errors[key] = 'This field is empty!'
             error_bool = true
         }
     }
