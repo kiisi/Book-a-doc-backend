@@ -86,7 +86,7 @@ module.exports.login = async (req, res) =>{
     }
 
     if(error_bool){
-        return res.status(403).json({error: errors})
+        return res.status(401).json({error: errors})
     }
 
     const {email, password} = req.body
@@ -121,7 +121,7 @@ module.exports.login = async (req, res) =>{
         console.log(err)
 
         if(err_bool){
-            return res.status(403).json({error: errors})
+            return res.status(401).json({error: errors})
         }else{
             return res.status(500).json({server_err: "An error occurred"})
         }
@@ -152,15 +152,18 @@ module.exports.verifyUser = (req, res, next) =>{
                 res.status(403).json({error: "Unauthorized user"})
             }else{
                 let user = await UserModel.findById(decodedToken.id);
-                user.password = undefined
+                if(user){
+                    user.password = undefined
+                    res.status(200).json({success: 'Authorized', data: user})
+                }else{
+                    res.status(401).json({error: 'Unauthorized', data: user})
+                }
                 console.log(user)
-                req.userInfo = user
-                res.status(200).json({success: 'Authorized', data: user})
                 next()
             }
         })
     }else{
-        res.status(403).json({error: "Unauthorized user"})
+        res.status(401).json({error: "Unauthorized user"})
         next()
     }
 }
