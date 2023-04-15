@@ -1,6 +1,6 @@
 const UserModel = require("../models/userModel")
 
-module.exports.profile = (req, res) =>{
+module.exports.profile = async (req, res) =>{
     const id = req.params.id
     console.log(id)
     const profile_data = req.body
@@ -28,15 +28,13 @@ module.exports.profile = (req, res) =>{
     const { height, weight, blood_group, genotype} = req.body
 
     try{
-        UserModel.updateOne({ _id: id }, { 
+        let u = await UserModel.updateOne({ _id: id }, { 
             height: height, 
             weight: weight,
             blood_group: blood_group,
             genotype: genotype 
-        }, (err, res) => {
-            if (err) throw err;
-            console.log(res);
         });
+        console.log(u)
     }
     catch(err){
         console.log(err)
