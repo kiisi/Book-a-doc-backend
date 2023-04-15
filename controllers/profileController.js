@@ -38,7 +38,7 @@ module.exports.profile = async (req, res) =>{
         res.status(202).json({success: 'Update successful'})
     }
     catch(err){
-        res.status(401).json({success: 'An error occurred'})
+        res.status(500).json({server_error: "Server Error"})
         console.log(err)
     }
 
@@ -83,7 +83,7 @@ module.exports.userInfo = async (req, res) =>{
         res.status(202).json({success: 'Update successful'})
     }
     catch(err){
-        res.status(401).json({success: 'An error occurred'})
+        res.status(500).json({server_error: "Server Error"})
         console.log(err)
     }
 
