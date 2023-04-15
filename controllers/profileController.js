@@ -3,7 +3,27 @@
 module.exports.profile = (req, res) =>{
     const id = req.params.id
     console.log(id)
-    console.log(req.body)
+    const profile_data = req.body
 
-    res.send({seen: 'True', _id: id, body: req.body})
+    let errors = {
+        'height':'',
+        'weight':'',
+        'blood_group':'',
+        'genotype':'',
+    }
+
+    let error_bool = false
+
+    for (let key in login_data){
+        if(login_data[key].trim() === ''){
+            errors[key] = 'This is field is empty!'
+            error_bool = true
+        }
+    }
+
+    if(error_bool){
+        return res.status(403).json({error: errors})
+    }
+
+    res.send({seen: 'True',})
 }
