@@ -14,8 +14,8 @@ module.exports.profile = (req, res) =>{
 
     let error_bool = false
 
-    for (let key in login_data){
-        if(login_data[key].trim() === ''){
+    for (let key in profile_data){
+        if(profile_data[key].trim() === ''){
             errors[key] = 'This is field is empty!'
             error_bool = true
         }
