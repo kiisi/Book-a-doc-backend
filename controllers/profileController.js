@@ -1,4 +1,4 @@
-
+const UserModel = require("../models/userModel")
 
 module.exports.profile = (req, res) =>{
     const id = req.params.id
@@ -25,5 +25,22 @@ module.exports.profile = (req, res) =>{
         return res.status(403).json({error: errors})
     }
 
-    res.send({seen: 'True',})
+    const { height, weight, blood_group, genotype} = req.body
+
+    try{
+        UserModel.updateOne({ _id: id }, { 
+            height: height, 
+            weight: weight,
+            blood_group: blood_group,
+            genotype: genotype 
+        }, (err, res) => {
+            if (err) throw err;
+            console.log(res);
+        });
+    }
+    catch(err){
+        console.log(err)
+    }
+
+    res.send({seen: 'True'})
 }
