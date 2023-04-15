@@ -35,10 +35,10 @@ module.exports.profile = async (req, res) =>{
             genotype: genotype 
         });
         console.log(u)
+        res.status(202).json({success: 'Update successful'})
     }
     catch(err){
         console.log(err)
     }
 
-    res.send({seen: 'True'})
 }
