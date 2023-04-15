@@ -30,6 +30,18 @@ const userSchema = new mongoose.Schema({
     },
     genotype: {
         type: String
+    },
+    state: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    allergies: {
+        type: String
+    },
+    description: {
+        type: String
     }
 }, { timestamps: true })
 

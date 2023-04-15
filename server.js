@@ -26,6 +26,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.json())
 app.use(require('./routes/authRoute'))
+app.use(require('./routes/profileRoute'))
 
 
 app.get('/', (req, res) => {
