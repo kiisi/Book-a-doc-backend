@@ -1,5 +1,6 @@
 const AppointmentModel = require("../models/appointmentModel")
 const UserModel = require("../models/userModel")
+const HospitalModel = require("../models/hospitalModel")
 
 // User profile
 module.exports.profile = async (req, res) =>{
@@ -103,7 +104,7 @@ module.exports.bookAppointment = async (req, res) =>{
         let remaining_mins = Math.trunc((last_appointment_expiry - Date.now()) / (1000 * 60))
     
         if(remaining_mins > 0){
-            return res.status(200).json({error: `Wait for ${remaining_mins} minute(s), there is an ongoing appointment` })
+            return res.status(200).json({error: `Wait for ${remaining_mins} minute(s), there is an ongoing appointment booking` })
         }else{
             let appointment_expiry = Date.now() + 900000
             let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
@@ -117,4 +118,22 @@ module.exports.bookAppointment = async (req, res) =>{
         return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
     }
 
+}
+
+module.exports.allHospital = async (req, res) => {
+    let page = parseInt(req.params.page)
+    // page should start from 1
+    let limit = 10
+
+    let skip = (page - 1) * 10
+    // get previous page offset
+
+    try{
+        const data = await HospitalModel.find().skip(skip).limit(limit)
+        return res.status(200).json({success: "Hospitals Fetched", data: data })
+    }
+    catch(err){
+        return res.status(401).json({error: "An error occurred" })
+    }
+    
 }
