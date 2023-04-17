@@ -4,6 +4,8 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const { data } = require('./data')
+const hospitalModel = require('./models/hospitalModel')
 
 dotenv.config()
 app.set("trust proxy", 1);
@@ -27,6 +29,10 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use(express.json())
 app.use(require('./routes/authRoute'))
 app.use(require('./routes/profileRoute'))
+
+// data.forEach(async (d)=>{
+//     await hospitalModel.create({name: d.name, state: d.state, city: d.city})
+// })
 
 
 app.get('/', (req, res) => {
