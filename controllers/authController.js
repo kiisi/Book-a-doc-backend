@@ -177,5 +177,5 @@ module.exports.logout = (req, res) =>{
         secure: true,
         sameSite: 'none',
     })
-    res.status(200).json({logout: true})
+    res.status(200).json({success: true})
 }
