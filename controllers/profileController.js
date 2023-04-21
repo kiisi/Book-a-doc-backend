@@ -102,7 +102,7 @@ module.exports.bookAppointment = async (req, res) =>{
 
 
         if(user_appointments.length > 0){
-            let last_user_appointment_expiry = user_appointment_expiry[user_appointment_expiry.length - 1].expires_at
+            let last_user_appointment_expiry = user_appointments[user_appointments.length - 1].expires_at
             
             let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
     
