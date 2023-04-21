@@ -95,9 +95,21 @@ module.exports.bookAppointment = async (req, res) =>{
 
     const { hospital_id, user_id } = req.body
 
-    let appointments = await AppointmentModel.find()
+    let appointments = await AppointmentModel.find({hospital: hospital_id})
+    let user_appointments = await AppointmentModel.find({user: user_id})
 
     if(appointments.length > 0){
+
+
+        if(user_appointments.length > 0){
+            let last_user_appointment_expiry = user_appointment_expiry[user_appointment_expiry.length - 1].expires_at
+            
+            let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
+    
+            if(remaining_mins > 0){
+                return res.status(200).json({error: `Rest, You booked an appointment ${15 - remaining_mins} minute(s) ago.` })
+            }
+        }
 
         let last_appointment_expiry = appointments[appointments.length - 1].expires_at
     
