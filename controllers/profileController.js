@@ -95,33 +95,29 @@ module.exports.bookAppointment = async (req, res) =>{
 
     const { hospital_id, user_id } = req.body
 
-    let appointments = await AppointmentModel.find({hospital: hospital_id})
+    let hospital_appointments = await AppointmentModel.find({hospital: hospital_id})
     let user_appointments = await AppointmentModel.find({user: user_id})
 
-    if(appointments.length > 0){
-
-
-        if(user_appointments.length > 0){
-            let last_user_appointment_expiry = user_appointments[user_appointments.length - 1].expires_at
+    if(user_appointments.length > 0){
+        let last_user_appointment_expiry = user_appointments[user_appointments.length - 1].expires_at
             
-            let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
-    
-            if(remaining_mins > 0){
-                return res.status(200).json({error: `Rest, You booked an appointment ${15 - remaining_mins} minute(s) ago.` })
-            }
+        let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
+
+        if(remaining_mins > 0){
+            return res.status(200).json({error: `Rest, You booked an appointment ${15 - remaining_mins} minute(s) ago.` })
         }
 
-        let last_appointment_expiry = appointments[appointments.length - 1].expires_at
+        let last_hospital_appointment_expiry = hospital_appointments[hospital_appointments.length - 1].expires_at
     
-        let remaining_mins = Math.trunc((last_appointment_expiry - Date.now()) / (1000 * 60))
-    
+        remaining_mins = Math.trunc((last_hospital_appointment_expiry - Date.now()) / (1000 * 60))
+
         if(remaining_mins > 0){
             return res.status(200).json({error: `Wait for ${remaining_mins} minute(s), there is an ongoing appointment booking` })
-        }else{
-            let appointment_expiry = Date.now() + 900000
-            let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
-            return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
         }
+
+        let appointment_expiry = Date.now() + 900000
+        let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
+        return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
 
     }else{
         let appointment_expiry = Date.now() + 900000
@@ -129,6 +125,39 @@ module.exports.bookAppointment = async (req, res) =>{
         
         return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
     }
+
+    // B
+
+    // if(appointments.length > 0){
+
+    //     if(user_appointments.length > 0){
+    //         let last_user_appointment_expiry = user_appointments[user_appointments.length - 1].expires_at
+            
+    //         let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
+    
+    //         if(remaining_mins > 0){
+    //             return res.status(200).json({error: `Rest, You booked an appointment ${15 - remaining_mins} minute(s) ago.` })
+    //         }
+    //     }
+
+    //     let last_appointment_expiry = appointments[appointments.length - 1].expires_at
+    
+    //     let remaining_mins = Math.trunc((last_appointment_expiry - Date.now()) / (1000 * 60))
+    
+    //     if(remaining_mins > 0){
+    //         return res.status(200).json({error: `Wait for ${remaining_mins} minute(s), there is an ongoing appointment booking` })
+    //     }else{
+    //         let appointment_expiry = Date.now() + 900000
+    //         let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
+    //         return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
+    //     }
+
+    // }else{
+    //     let appointment_expiry = Date.now() + 900000
+    //     let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
+        
+    //     return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
+    // }
 
 }
 
