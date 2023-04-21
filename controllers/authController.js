@@ -171,6 +171,11 @@ module.exports.verifyUser = (req, res, next) =>{
 // Logout
 
 module.exports.logout = (req, res) =>{
-    res.cookie('__Secure-jwt', '', {maxAge: 1})
+    res.cookie('__Secure-jwt', _tk, {
+        maxAge: 1, 
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+    })
     res.status(200).json({logout: true})
 }
