@@ -10,6 +10,9 @@ router.post('/user-info/:id', profileController.userInfo)
 // Book Appointment
 router.post('/book-appointment', profileController.bookAppointment)
 
+// Get one Hospital
+router.get('/hospital/:id', profileController.oneHospital)
+
 // Fetch Hospitals
 router.get('/all-hospitals/:page', profileController.allHospital)
 
