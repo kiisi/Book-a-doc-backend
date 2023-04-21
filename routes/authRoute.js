@@ -10,4 +10,7 @@ router.post('/login', authController.login)
 // Verify User Route
 router.get('/verify-user', authController.verifyUser)
 
+// Logout
+router.get('/logout', authController.logout)
+
 module.exports = router

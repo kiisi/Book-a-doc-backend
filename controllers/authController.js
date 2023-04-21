@@ -167,3 +167,10 @@ module.exports.verifyUser = (req, res, next) =>{
         next()
     }
 }
+
+// Logout
+
+module.exports.logout = (req, res) =>{
+    res.cookie('__Secure-jwt', '', {maxAge: 1})
+    res.status(200).json({logout: true})
+}
