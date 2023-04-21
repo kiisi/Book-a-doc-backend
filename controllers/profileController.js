@@ -95,7 +95,7 @@ module.exports.bookAppointment = async (req, res) =>{
 
     const { hospital_id, user_id } = req.body
 
-    let appointments = await AppointmentModel.find({hospital: hospital_id})
+    let appointments = await AppointmentModel.find({user: user_id})
 
     if(appointments.length > 0){
 
