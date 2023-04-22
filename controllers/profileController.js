@@ -163,7 +163,7 @@ module.exports.oneHospital = async (req, res) => {
     let id = req.params.id
 
     try {
-        const data = await HospitalModel.find({user: id})
+        const data = await HospitalModel.find({hospital: id})
         return res.status(200).json({ success: "Hospitals Fetched", data: data })
     }
     catch (err) {
