@@ -93,16 +93,7 @@ module.exports.userInfo = async (req, res) => {
 
 module.exports.bookAppointment = async (req, res) => {
 
-    const { hospital_id, user_id, date, time } = req.body
-
-    console.log("Date: ", new Date(date))
-    console.log("Date Now: ", Date.now())
-    const d = new Date(date)
-
-    if(Date.now() >= d){
-        console.log("Choose a future date")
-    }
-    
+    const { hospital_id, user_id, date, time } = req.body    
 
     let hospital_appointments = await AppointmentModel.find({ hospital: hospital_id })
     let user_appointments = await AppointmentModel.find({ user: user_id })
