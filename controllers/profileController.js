@@ -121,7 +121,7 @@ module.exports.bookAppointment = async (req, res) => {
         }
 
         let appointment_expiry = Date.now() + 900000
-        let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry })
+        let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry, date, time })
         return res.status(201).json({ success: "Your appointment has been book", data: new_appointment })
 
     } else {
@@ -136,7 +136,7 @@ module.exports.bookAppointment = async (req, res) => {
         }
 
         let appointment_expiry = Date.now() + 900000
-        let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry })
+        let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry, date, time })
 
         return res.status(201).json({ success: "Your appointment has been book", data: new_appointment })
     }
