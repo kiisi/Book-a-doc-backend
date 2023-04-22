@@ -16,5 +16,7 @@ router.get('/hospital/:id', profileController.oneHospital)
 // Fetch Hospitals
 router.get('/all-hospitals/:page', profileController.allHospital)
 
+// Fetch Hospitals
+router.get('/user-appointments', profileController.userAppointments)
 
 module.exports = router

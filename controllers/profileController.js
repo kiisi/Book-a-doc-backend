@@ -138,39 +138,6 @@ module.exports.bookAppointment = async (req, res) => {
         return res.status(201).json({ success: "Your appointment has been book", data: new_appointment })
     }
 
-    // B
-
-    // if(appointments.length > 0){
-
-    //     if(user_appointments.length > 0){
-    //         let last_user_appointment_expiry = user_appointments[user_appointments.length - 1].expires_at
-
-    //         let remaining_mins = Math.trunc((last_user_appointment_expiry - Date.now()) / (1000 * 60))
-
-    //         if(remaining_mins > 0){
-    //             return res.status(200).json({error: `Rest, You booked an appointment ${15 - remaining_mins} minute(s) ago.` })
-    //         }
-    //     }
-
-    //     let last_appointment_expiry = appointments[appointments.length - 1].expires_at
-
-    //     let remaining_mins = Math.trunc((last_appointment_expiry - Date.now()) / (1000 * 60))
-
-    //     if(remaining_mins > 0){
-    //         return res.status(200).json({error: `Wait for ${remaining_mins} minute(s), there is an ongoing appointment booking` })
-    //     }else{
-    //         let appointment_expiry = Date.now() + 900000
-    //         let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
-    //         return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
-    //     }
-
-    // }else{
-    //     let appointment_expiry = Date.now() + 900000
-    //     let new_appointment = await AppointmentModel.create({ hospital: hospital_id, user: user_id, expires_at: appointment_expiry})
-
-    //     return res.status(201).json({success: "Your appointment has been book", data: new_appointment}) 
-    // }
-
 }
 
 module.exports.allHospital = async (req, res) => {
@@ -196,8 +163,22 @@ module.exports.oneHospital = async (req, res) => {
     let id = req.params.id
 
     try {
-        const data = await HospitalModel.findById(id)
+        const data = await HospitalModel.find({user: id})
         return res.status(200).json({ success: "Hospitals Fetched", data: data })
+    }
+    catch (err) {
+        return res.status(401).json({ error: "An error occurred" })
+    }
+
+}
+
+// Get All User's Appointments
+module.exports.userAppointments = async (req, res) => {
+    let user_id = req.params.id
+
+    try {
+        const data = await AppointmentModel.findById({ user: user_id })
+        return res.status(200).json({ success: "Appointments Fetched", data: data })
     }
     catch (err) {
         return res.status(401).json({ error: "An error occurred" })
