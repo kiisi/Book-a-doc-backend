@@ -177,7 +177,7 @@ module.exports.userAppointments = async (req, res) => {
     let user_id = req.params.id
 
     try {
-        const data = await AppointmentModel.find({ user: user_id }).populate('hospital', 'user')
+        const data = await AppointmentModel.find({ user: user_id }).populate('hospital user')
         return res.status(200).json({ success: "Appointments Fetched", data: data })
     }
     catch (err) {
