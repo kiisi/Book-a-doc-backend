@@ -143,9 +143,9 @@ module.exports.bookAppointment = async (req, res) => {
 module.exports.allHospital = async (req, res) => {
     let page = parseInt(req.params.page)
     // page should start from 1
-    let limit = 25
+    let limit = 10
 
-    let skip = (page - 1) * 25
+    let skip = (page - 1) * 10
     // get previous page offset
 
     try {
